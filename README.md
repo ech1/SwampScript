@@ -16,9 +16,19 @@ then hit A to say yes to all
 Then clone the repo somewhere (you can use github desktop for that or something else)
 Then make sure you have gmod running on the chromium branch, because my script checks for gmod.exe and not something else
 if gmod isn't on the correct branch, it won't be named gmod.exe and console will most likely pick this up as anti afking because you're being reconnected every minute.
-So make sure gmod is actually called gmod.exe when you run it (Chromium Branch), then proceed:
+```So make sure gmod is actually called gmod.exe when you run it (Chromium Branch)
+Steam > library > right click gnod > properties > Betas > x86-64 - Chromium + 64bit binaries
+```
 
 Basically the file swamp.bat is used to call the other powershell scripts,
 you can double click it and it will open up (just type 1 2 or 3 depending on what you want to do with gmod)
 It will automatically reconnect you every 12 hours or if the game crashes
+If you want to run that swamp.bat at each startup, do the following:
+```
+create a shortcut of swamp.bat
+WIN+R
+shell:startup
+put the shortcut to swamp.bat in here
+```
+
 
