@@ -40,7 +40,7 @@ shell:startup
 put the shortcut to swamp.bat in here
 ```
 # Disclaimer
-By default, the script assume that:
+By default, the script assumes that:
 ```
 -Steam is installed at the default location ( C:\Program Files (x86)\Steam\Steam.exe )
 -that you have a 1920x1080 screen
