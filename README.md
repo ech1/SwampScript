@@ -32,6 +32,7 @@ WIN+R
 shell:startup
 put the shortcut to swamp.bat in here
 ```
+# Disclaimer
 By default, the script assume that:
 ```
 -Steam is installed at the default location ( C:\Program Files (x86)\Steam\Steam.exe )
