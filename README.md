@@ -12,7 +12,7 @@ First enable powershell scripts:
 ```
 WIN + X
 Run powershell as admin
-set-executionpolicy remotesigned
+set-executionpolicy bypass
 then hit A to say yes to all
 ```
 Then clone the repo somewhere (you can use github desktop for that or something else)
