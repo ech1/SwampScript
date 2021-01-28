@@ -7,7 +7,7 @@ If you change the value to be under 720 minutes,
 don't be suprised if console detects it.
 ```
 
-#How to install it
+# How to install it
 First enable powershell scripts:
 ```
 WIN + X
