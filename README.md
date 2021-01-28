@@ -44,6 +44,6 @@ By default, the script assumes that:
 ```
 -Steam is installed at the default location ( C:\Program Files (x86)\Steam\Steam.exe )
 -that you have a 1920x1080 screen
--that you are running gmod on the chromium branch
+-that you are running gmod on the chromium branch ( gmod.exe )
 ```
 if any of those conditions are not there, make sure to tweak the .ps1 scripts to your liking. Keep in mind that if it does not work properly, console might pick it up as anti afking, so make sure that you test the script properly before letting it run for hours on end. IF you have any questions just send them over on discord / telegram / steam so i can answer them.
