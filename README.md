@@ -22,8 +22,8 @@ Code
 Download as zip
 Extract it on ur desktop or wherever you want
 ```
-Then make sure you have gmod running on the chromium branch, because my script checks for gmod.exe and not something else
-if gmod isn't on the correct branch, it won't be named gmod.exe and console will most likely pick this up as anti afking because you're being reconnected every minute.
+Then make sure you have gmod running on the chromium branch, because my script checks for gmod.exe and not something else.
+If gmod isn't on the correct branch, it won't be named gmod.exe and console will most likely pick this up as anti afking because you're being reconnected every minute, that's not what should happen.
 ```So make sure gmod is actually called gmod.exe when you run it (Chromium Branch)
 Steam > library > right click gnod > properties > Betas > x86-64 - Chromium + 64bit binaries
 ```
