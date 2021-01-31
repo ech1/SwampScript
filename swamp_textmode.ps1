@@ -10,7 +10,7 @@ while(1){
 			echo ''
 			echo '[+] GMOD IS CLOSED ! RESTARTING'
 			$steampath='C:\Program Files (x86)\Steam\Steam.exe'
-			$args='-applaunch 4000 +connect cinema.swampservers.net:27015 -textmode -low -noaddons -nochromium -novid -nosound'
+			$args='-applaunch 4000 +connect cinema.swampservers.net:27015 -textmode -low -noaddons -nochromium -novid -nosound +volume 0'
 			#& "$steampath" $args
 			Start-Process -FilePath "$steampath" -ArgumentList "$args"
 			$counter=0
