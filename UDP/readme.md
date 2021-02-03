@@ -2,7 +2,10 @@
 ```
 Warning, this version requires admin privileges, however this is a much more efficient approach
 because you are checking the UDP connection to the server instead of just the process.
+
 If anything happens to the connection itself, you will be reconnected.
+If you loose your connection to internet, the script will just wait until it goes back on.
+
 The script uses pktmon, which is a built-in windows 10 utility that can check the udp packets,
 And it requires admin privileges to be executed.
 ``` 
