@@ -51,4 +51,4 @@ Reboot to Check if the script is launched with elevevated privileges
 
 Do not use this script if your internet connection isn't stable enough,
 This is a script to be used if you have a continuous internet connection with as few 
-downtimes as possible.
+downtimes as possible. Do not use this script if your internet connection switches on and off for extended periods of time every hours
