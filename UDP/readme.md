@@ -34,7 +34,7 @@ click the 'Actions' tab
 click 'New'
 click 'Browse'
 and then find the path to swamp.bat
-for example: C:\Users\ech06\Desktop\SwampScript-main\swamp.bat
+for example: C:\Users\ech06\Desktop\SwampScript-main\UDP\swamp.bat
 then click 'ok'
 
 click the 'Settings' tab
