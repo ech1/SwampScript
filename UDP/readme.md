@@ -46,3 +46,9 @@ then click 'ok'
 
 Reboot to Check if the script is launched with elevevated privileges
 ```
+
+# Disclaimer
+
+Do not use this script if your internet connection isn't stable enough,
+This is a script to be used if you have a continuous internet connection with as few 
+downtimes as possible.
