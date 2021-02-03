@@ -1,29 +1,3 @@
-# WIN+R
-# taskschd.msc 
-# click 'Task Scheduler Library' then click 'New Folder'
-# name it swampscript
-# go into it, and then click 'create task'
-
-# Name : swampscript
-# tick 'run with highest privileges'
-# configure for: Windows 10
-
-# click the 'Triggers' tab
-# click 'New'
-# Begin the task: 'At logon'
-# click 'ok'
-
-# click the 'Actions' tab
-# click 'New'
-# click 'Browse'
-# and then find the path to swamp.bat
-# for example: C:\Users\ech06\Desktop\SwampScript-main\swamp.bat
-# then click 'ok'
-
-# click the 'Settings' tab
-# Tick 'if the task fails, restart every : 1 minute, restart 3 times
-# then click 'ok'
-
 # Check if powershell is launched as elevevated
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if(-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
@@ -48,18 +22,18 @@ echo '[+] 2) Idle'
 echo '[+] 3) Textmode'
 $choice = Read-Host -Prompt '[+] Type the number of your choice:'
 
-$steampath='Z:\Steam\Steam.exe'
+$steampath='C:\Program Files (x86)\Steam\Steam.exe'
 switch ($choice) {
 1 {
-	echo "[+] Active"
+	echo "[+] Active Selected"
 	$args='-applaunch 4000 +connect cinema.swampservers.net:27015 -w 1920 -h 1080 -noborder -windowed'
 	}
 2 {
-	echo "[+] Idle"
+	echo "[+] Idle Selected"
 	$args='-applaunch 4000 -w 1920 -h 1080 +connect cinema.swampservers.net:27015 -dev +contimes 118 +con_notifytime 240 -noaddons -nochromium -noborder -windowed -novid ' #-nocdaudio -nosrgb
 	}
 default {
-	echo "[+] TEXTMODE"
+	echo "[+] Textmode Selected"
 	$args='-applaunch 4000 +connect cinema.swampservers.net:27015 -textmode -nochromium -noaddons -novid +volume 0 -nosound -noshaderapi -safe'
 	}
 }
