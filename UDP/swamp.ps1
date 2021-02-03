@@ -7,7 +7,7 @@ if(-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Admi
 	echo '[+] WIN+X A'
 	$path=(Get-Item -Path ".\").FullName
 	echo "[+] cd $path"
-	echo '[+] .\UDP_sniffer.ps1'
+	echo '[+] .\swamp.ps1'
 	echo ''
     exit
 		
