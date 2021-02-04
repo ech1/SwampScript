@@ -47,3 +47,7 @@ By default, the script assumes that:
 -that you are running gmod on the chromium branch ( gmod.exe )
 ```
 if any of those conditions are not there, make sure to tweak the .ps1 scripts to your liking. Keep in mind that if it does not work properly, console might pick it up as anti afking, so make sure that you test the script properly before letting it run for hours on end. IF you have any questions just send them over on discord / telegram / steam so i can answer them.
+
+```
+if you're using textmode, make sure you focus another window so that there's no mouse movements stuff detected
+```
