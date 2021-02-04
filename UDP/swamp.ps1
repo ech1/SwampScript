@@ -65,6 +65,7 @@ if($internet){
 		
 	}else{
 		echo '[+] GOOD ENOUGH UDP PACKETS !!!!!'
+		echo '[+] ctrl+c and n if you want to restart the script'
 		$connection=0
 		timeout 60
 	}
