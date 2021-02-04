@@ -76,7 +76,7 @@ if($internet){
 		$gmod = Get-Process gmod -ErrorAction SilentlyContinue
 		
 		$gmod | Stop-Process -Force
-		$steam | Stop-Process -Force
+		# $steam | Stop-Process -Force #just kill gmod, not steam
 		
 		Start-Process -FilePath "$steampath" -ArgumentList "$args"
 		timeout 30
