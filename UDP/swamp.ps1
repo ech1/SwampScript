@@ -30,7 +30,7 @@ switch ($choice) {
 	}
 2 {
 	echo "[+] Idle Selected"
-	$args='-applaunch 4000 -w 1920 -h 1080 +connect cinema.swampservers.net:27015 -dev +contimes 118 +con_notifytime 240 -noaddons -nochromium -noborder -windowed -novid ' #-nocdaudio -nosrgb
+	$args='-applaunch 4000 -w 1920 -h 1080 +connect cinema.swampservers.net:27015 -dev +contimes 85 +con_notifytime 240 -noaddons -nochromium -noborder -windowed -novid ' #-nocdaudio -nosrgb
 	}
 default {
 	echo "[+] Textmode Selected"
