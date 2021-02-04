@@ -52,7 +52,7 @@ if($internet){
 	pktmon filter add -t UDP -i 208.103.169.51
 	pktmon start --etw -l circular -s 1
 	echo '[+] CHECKING UDP CONNECTIONS ... '
-	timeout 30
+	timeout 60
 	
 	
 	pktmon stop
@@ -66,7 +66,7 @@ if($internet){
 	}else{
 		echo '[+] GOOD ENOUGH UDP PACKETS !!!!!'
 		$connection=0
-		timeout 30
+		timeout 60
 	}
 	if($connection -gt 10){
 		echo '[+] RESTART GMOD !!!'
@@ -84,7 +84,7 @@ if($internet){
 }else{
 	echo '[+] Internet DOWN !'
 	$counter=0
-	timeout 60
+	timeout 600
 }
 
 
