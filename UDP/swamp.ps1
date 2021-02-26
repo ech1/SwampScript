@@ -22,18 +22,18 @@ echo '[+] 2) Idle'
 echo '[+] 3) Textmode'
 $choice = Read-Host -Prompt '[+] Type the number of your choice:'
 
-$steampath='C:\Program Files (x86)\Steam\Steam.exe'
+$steampath='Z:\Steam\Steam.exe'
 switch ($choice) {
 1 {
-	echo "[+] Active Selected"
+	echo "[+] Active"
 	$args='-applaunch 4000 +connect cinema.swampservers.net:27015 -w 1920 -h 1080 -noborder -windowed'
 	}
 2 {
-	echo "[+] Idle Selected"
-	$args='-applaunch 4000 -w 1920 -h 1080 +connect cinema.swampservers.net:27015 -dev +contimes 85 +con_notifytime 240 -noaddons -nochromium -noborder -windowed -novid ' #-nocdaudio -nosrgb
+	echo "[+] Idle"
+	$args='-applaunch 4000 -w 1920 -h 1080 -noborder +connect cinema.swampservers.net:27015  -noaddons -nochromium  -windowed -novid ' #-nocdaudio -nosrgb -dev +contimes 0 +con_notifytime 240
 	}
 default {
-	echo "[+] Textmode Selected"
+	echo "[+] TEXTMODE"
 	$args='-applaunch 4000 +connect cinema.swampservers.net:27015 -textmode -nochromium -noaddons -novid +volume 0 -nosound -noshaderapi -safe'
 	}
 }
@@ -52,7 +52,7 @@ if($internet){
 	pktmon filter add -t UDP -i 208.103.169.51
 	pktmon start --etw -l circular -s 1
 	echo '[+] CHECKING UDP CONNECTIONS ... '
-	timeout 60
+	timeout 10
 	
 	
 	pktmon stop
@@ -65,11 +65,10 @@ if($internet){
 		
 	}else{
 		echo '[+] GOOD ENOUGH UDP PACKETS !!!!!'
-		echo '[+] ctrl+c and n if you want to restart the script'
 		$connection=0
-		timeout 60
+		timeout 590
 	}
-	if($connection -gt 10){
+	if($connection -gt 2){
 		echo '[+] RESTART GMOD !!!'
 		$connection=0
 		
@@ -77,15 +76,15 @@ if($internet){
 		$gmod = Get-Process gmod -ErrorAction SilentlyContinue
 		
 		$gmod | Stop-Process -Force
-		# $steam | Stop-Process -Force #just kill gmod, not steam
+		$steam | Stop-Process -Force
 		
 		Start-Process -FilePath "$steampath" -ArgumentList "$args"
-		timeout 30
+		timeout 120
 	}
 }else{
 	echo '[+] Internet DOWN !'
 	$counter=0
-	timeout 600
+	timeout 60
 }
 
 
