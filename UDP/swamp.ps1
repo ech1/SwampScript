@@ -22,7 +22,7 @@ echo '[+] 2) Idle'
 echo '[+] 3) Textmode'
 $choice = Read-Host -Prompt '[+] Type the number of your choice:'
 
-$steampath='Z:\Steam\Steam.exe'
+$steampath='C:\Program Files (x86)\Steam\Steam.exe'
 switch ($choice) {
 1 {
 	echo "[+] Active"
