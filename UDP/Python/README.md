@@ -3,12 +3,14 @@ this is a work in progress for now, i don't recommend using it until i'm done te
 
 # Setup 
 get python3 on your windows machine (you can use microsoft store to get it)
-pip install --upgrade pip
-pip install scapy colorama psutil
+```
+WIN+X  a (to launch a terminal with admin privileges)
+PS> pip install --upgrade pip
+PS> pip install scapy colorama psutil
+```
 and you're good to go!
 
 ```
-WIN+X  a (to launch a terminal with admin privileges)
 cd path\to\SwampScript\UDP\Python\
 python swamp.py
 ```
