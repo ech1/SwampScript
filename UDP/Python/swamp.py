@@ -18,13 +18,15 @@ IPAddr = socket.gethostbyname(hostname)
 
 from colorama import init, Fore, Back
 FGR = Fore.GREEN
-FYE = Fore.YELLOW
+#FYE = Fore.YELLOW
 FRE   = Fore.RED
 FCY  = Fore.CYAN
+#FBL  = Fore.BLACK
 FRESET = Fore.RESET
 
 BGR = Back.GREEN
-BYE = Back.YELLOW
+#BYE = Back.YELLOW
+BBL = Back.BLACK
 BRE   = Back.RED
 BCY  = Back.CYAN
 BRESET = Back.RESET
@@ -32,48 +34,65 @@ BRESET = Back.RESET
 
 
 def main():
+        down=0
         print('Your local IP is',IPAddr)
         #a=sniff(store=0,count=10,filter="udp and host 208.103.169.51",prn=lambda x: x.sprintf("%IP.src% -> %IP.dst%"))
         while(check_swampservers()):
-            print("[+] swampservers.net", 'is up!')
-            time.sleep(10)
+            down=0
+            print(f"\n{BGR}[+] swampservers.net is up!{BRESET}")
+            #time.sleep(60)
             if(check_udp_connection()):
-                print('[+] UDP CONNECTION IS UP')
+                print(f"\n{BGR}[+] UDP CONNECTION IS UP{BRESET}")
             else:
-                print('[+] UDP CONNECTION IS DOWN')
+                print(f"\n{BRE}[+] UDP CONNECTION IS DOWN{BRESET}")
                 #args1=args1.split()
                 #args2=args2.split()
                 restart_gmod()
                 
             time.sleep(60)
         else:
-            print("swampservers.net", 'is down!')
-       
+            down +=1
+            print(f"\n{BRE}[+] swampservers.net is down!{BRESET}")
+            if(down >= 10):
+                kill_gmod()
+                
+     
+def kill_gmod():  
+    print(f"\n{BRE}[+] RESTARTING GMOD{BRESET}")  
+    for proc in psutil.process_iter():
+            if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
+                print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
+                proc.kill()
+    time.sleep(60)
+    
 def restart_gmod():  
-    print('[+] RESTART GMOD')  
+    print(f"\n{BRE}[+] RESTARTING GMOD{BRESET}")  
     #os.system('taskkill /im gmod.exe') #doesnt even work
     #os.system('taskkill /im steam.exe')
     for proc in psutil.process_iter():
             if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
-                print('[+] KILLING: ',proc.name())
+                print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
                 proc.kill()
     time.sleep(3)
     subprocess.Popen(fullpath,shell=False)
     
     
 def check_udp_connection():
-    print('[+] CHECKING UDP')  
+    print(f"\n{BCY}[+] CHECKING UDP{BRESET}")  
     #check the udp connection to the server
     a=sniff(timeout=5,count=10,filter="udp and host 208.103.169.51")
-    print(f"\n{BGR}[+]{BRESET}",a)
-    print(a.summary())
+    
     if(len(a) <= 3):
+        print(f"\n{BRE}[+]",a,f"{BRESET}")
+        print(a.summary())
         return False
     else:
+        print(f"\n{BGR}[+]",a,f"{BRESET}")
+        print(a.summary())
         return True
    
 def check_swampservers():
-    print('[+] CHECKING INTERNET')  
+    print(f"\n{BCY}[+] CHECKING INTERNET{BRESET}")  
     #example
     response = os.system("ping -n 1 swampservers.net | findstr Reply")
 
@@ -85,8 +104,8 @@ def check_swampservers():
 
 if __name__ == '__main__':
     choice='0'
-    #steampath='C:\Program Files (x86)\Steam\steam.exe'
-    steampath='Z:\Steam\steam.exe'
+    steampath='C:\Program Files (x86)\Steam\steam.exe'
+    #steampath='Z:\Steam\steam.exe'
     args1=' -applaunch 4000 +connect cinema.swampservers.net -windowed -noborder -w 2560 -h 1440'
     args2=''
     while(choice == '0'):

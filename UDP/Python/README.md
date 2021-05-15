@@ -2,7 +2,7 @@
 this is a work in progress for now, i don't recommend using it until i'm done testing it thoroughly
 
 # Setup 
-get python3 on your windows machine (use microsoft store to do that)
+get python3 on your windows machine (you can use microsoft store to get it)
 pip install --upgrade pip
 pip install scapy colorama psutil
 and you're good to go!
