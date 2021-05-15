@@ -1,4 +1,4 @@
-#Setup
+# Setup
 get python3 on your windows machine (use microsoft store to do that)
 pip install --upgrade pip
 pip install scapy colorama psutil
