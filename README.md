@@ -9,6 +9,7 @@ And restart gmod automatically. I recommend testing it for a few hours to see if
 
 # Setup 
 -get python3 on your windows machine (you can use microsoft store to get it)
+
 -This script uses 3 libraries, and you can get them with pip (it comes with python) from a powershell terminal
 ```
 WIN+X  a (to launch a terminal with admin privileges)
