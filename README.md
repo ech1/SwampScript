@@ -8,7 +8,8 @@ And restart gmod automatically. I recommend testing it for a few hours to see if
 ## this is a script to use only if you have a solid internet connection, do not use it if your internet connection has alot of frequent downtimes
 
 # Setup 
-get python3 on your windows machine (you can use microsoft store to get it)
+-get python3 on your windows machine (you can use microsoft store to get it)
+-This script uses 3 libraries, and you can get them with pip (it comes with python) from a powershell terminal
 ```
 WIN+X  a (to launch a terminal with admin privileges)
 PS> pip install --upgrade pip
