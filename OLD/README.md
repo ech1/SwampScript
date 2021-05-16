@@ -1,4 +1,4 @@
-# SwampScript
+# SwampScript (DEPRECATED)
 A script that is being used to connect to https://swampservers.net/
 ```
 The minimum duration is set to 12 hours so that it does 
