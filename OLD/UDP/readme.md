@@ -1,4 +1,4 @@
-# UDP Version
+# UDP Version (DEPRECATED)
 ```
 Warning, this version requires admin privileges, however this is a much more efficient approach
 because you are checking the UDP connection to the server instead of just the process.
