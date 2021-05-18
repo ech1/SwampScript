@@ -118,7 +118,7 @@ if __name__ == '__main__':
     choice='0'
     steampath='C:\Program Files (x86)\Steam\steam.exe'
     #steampath='Z:\Steam\steam.exe'
-    args1=' -applaunch 4000 +connect cinema.swampservers.net -windowed -noborder -w 2560 -h 1440'
+    args1=' -applaunch 4000 +connect cinema.swampservers.net -windowed -noborder -w 1920 -h 1080'
     args2=''
     while(choice == '0'):
             choice=input('''
