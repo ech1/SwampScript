@@ -63,6 +63,7 @@ def main():
                 print(f"\n{BRE}[+] swampservers.net is down!{BRESET}")
                 if(down >= 10):
                     kill_gmod()
+                    down=0
                 
 #def check_gmod():
     #check the process is running
@@ -70,7 +71,7 @@ def main():
     #check the RAM usage
  
 def kill_gmod():  
-    print(f"\n{BRE}[+] RESTARTING GMOD{BRESET}")  
+    print(f"\n{BRE}[+] CLOSING GMOD{BRESET}")  
     for proc in psutil.process_iter():
             if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
                 print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
