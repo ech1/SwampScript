@@ -34,7 +34,7 @@ BRESET = Back.RESET
 def main():
         endUP=time.time() # just in case the script starts before gmod is launched
         down=0
-        interval=3 #interval to check UDP connection is 20 secs
+        interval=20 #interval to check UDP connection is 20 secs
         downUDP=0
         limit= 9 #number of udp connection tests (9x20secs) before retrying to launch gmod
         verbose=False #False for no verbose output, #True for verbose output
@@ -152,8 +152,8 @@ def restart_gmod(verbose):
 
 if __name__ == '__main__':
     choice='0'
-    #steampath='C:\Program Files (x86)\Steam\steam.exe'
-    steampath='Z:\Steam\steam.exe'
+    steampath='C:\Program Files (x86)\Steam\steam.exe'
+    #steampath='Z:\Steam\steam.exe'
     args1=' -applaunch 4000 +connect cinema.swamp.sv -windowed -w 1920 -h 1080'
     args2=''
     while(choice == '0'):
