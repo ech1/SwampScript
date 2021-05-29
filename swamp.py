@@ -1,9 +1,7 @@
 
 #get python3 on your windows machine (use microsoft store to do that)
 #pip install --upgrade pip
-#pip install scapy
-#pip install colorama
-#pip install psutil
+#pip install scapy colorama psutil requests
 #and you're good to go!
 
 import psutil
@@ -144,11 +142,6 @@ def restart_gmod(verbose):
                     print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
                 proc.kill()
     subprocess.Popen(fullpath,shell=False)
-
-
-
-
-
 
 if __name__ == '__main__':
     choice='0'
