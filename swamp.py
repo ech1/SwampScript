@@ -13,128 +13,161 @@ import os
 import time
 from scapy.all import *
 import socket
+import requests
 hostname = socket.gethostname()
 IPAddr = socket.gethostbyname(hostname)
 
 from colorama import init, Fore, Back
 FGR = Fore.GREEN
-#FYE = Fore.YELLOW
+FYE = Fore.YELLOW
 FRE   = Fore.RED
 FCY  = Fore.CYAN
-#FBL  = Fore.BLACK
+FBL  = Fore.BLACK
 FRESET = Fore.RESET
 
 BGR = Back.GREEN
-#BYE = Back.YELLOW
 BBL = Back.BLACK
 BRE   = Back.RED
 BCY  = Back.CYAN
 BRESET = Back.RESET
 
-
-
 def main():
+        endUP=time.time() # just in case the script starts before gmod is launched
         down=0
+        interval=3 #interval to check UDP connection is 20 secs
         downUDP=0
-        print('Your local IP is',IPAddr)
-        #a=sniff(store=0,count=10,filter="udp and host 208.103.169.51",prn=lambda x: x.sprintf("%IP.src% -> %IP.dst%"))
+        limit= 9 #number of udp connection tests (9x20secs) before retrying to launch gmod
+        verbose=False #False for no verbose output, #True for verbose output
+        #print('Your local IP is',IPAddr)
         while True:
-            while(check_swampservers()):
+            while(check_swampsv(verbose)):
                 down=0
-                print(f"\n{BGR}[+] swampservers.net is up!{BRESET}")
-                #time.sleep(60)
-                if(check_udp_connection()):
-                    downUDP=0
-                    print(f"\n{BGR}[+] UDP CONNECTION IS UP{BRESET}")
-                else:
-                    print(f"\n{BRE}[+] UDP CONNECTION IS DOWN{BRESET}")
-                    #args1=args1.split()
-                    #args2=args2.split()
-                    downUDP+=1
-                    #print the attempt numbers in the ELSE of that if
-                    print(f"{BRE}[+]",downUDP,f"/3{BRESET}")
-                    if(downUDP >= 3):
-                        downUDP=0
-                        restart_gmod()
-                
-                time.sleep(20)
-            else:
-                down +=1
-                print(f"\n{BRE}[+] swampservers.net is down!{BRESET}")
-                if(down >= 10):
-                    kill_gmod()
-                    down=0
-                
-#def check_gmod():
-    #check the process is running
-    #check the CPU usage
-    #check the RAM usage
- 
-def kill_gmod():  
-    print(f"\n{BRE}[+] CLOSING GMOD{BRESET}")  
-    for proc in psutil.process_iter():
-            if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
-                print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
-                proc.kill()
-    time.sleep(60)
-    
-def restart_gmod():  
-    print(f"\n{BRE}[+] RESTARTING GMOD{BRESET}")  
-    #os.system('taskkill /im gmod.exe') #doesnt even work
-    #os.system('taskkill /im steam.exe')
-    for proc in psutil.process_iter():
-            if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
-                print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
-                proc.kill()
-    time.sleep(3)
-    subprocess.Popen(fullpath,shell=False)
-    
-    
-def check_udp_connection():
-    print(f"\n{BCY}[+] CHECKING UDP{BRESET}")  
-    #check the udp connection to the server
-    a=sniff(timeout=5,count=10,filter="udp and host 208.103.169.51")
-    
-    if(len(a) <= 3):
-        print(f"\n{BRE}[+]",a,f"{BRESET}")
-        print(a.summary())
-        return False
-    else:
-        print(f"\n{BGR}[+]",a,f"{BRESET}")
-        print(a.summary())
-        return True
-   
-def check_swampservers():
-    print(f"\n{BCY}[+] CHECKING INTERNET{BRESET}")  
-    #example
-    response = os.system("ping -n 1 swampservers.net | findstr Reply")
+                if(verbose):
+                    print(f"\n{BGR}[+] swampservers.net is up!{BRESET}")
+                start= time.time() #start time elapsed
 
-    #and then check the response...
-    if response == 0:
-        return True
-    else:
+                while(check_udp_connection(verbose)):
+                    downUDP=0
+                    if(verbose):
+                        print(f"\n{BGR}[+] UDP CONNECTION IS UP{BRESET}")
+                    endUP=time.time() # endUP the end of the uptime, this means that this is the START of the downtime
+                    secs=int(endUP-start)
+                    days = secs // (24 * 3600)
+                    if(secs<=interval):
+                            print("")
+                    print(f"{BGR}Uptime [",days,':',time.strftime("%H:%M:%S", time.gmtime(secs)),']\r', end="")
+                    time.sleep(interval)
+                else:
+                    if(verbose):
+                        print(f"\n{BRE}[+] UDP CONNECTION IS DOWN{BRESET}")
+                    else:
+                        if(downUDP == 0):
+                            print("")
+                        endDN=time.time()
+                        secs=int(endDN-endUP) #to measure downtime, you start from the end of the uptime
+                        if(secs<=interval):
+                                print("")
+                        days = secs // (24 * 3600)
+                        print(f"{BRE}Downtime [",days,':',time.strftime("%H:%M:%S", time.gmtime(secs)),f"{BRE}]",downUDP,f"/",limit,f"{BRESET}",'\r', end="")
+                        time.sleep(interval)
+                    downUDP+=1
+                    if((downUDP % limit) == 0):
+                         #stop elapsed time
+                        restart_gmod(verbose)
+                time.sleep(interval)
+            else:
+                if(down == 0):
+                    print("")
+                down +=1
+                if(verbose):
+                    print(f"\n{BRE}[+] swampservers.net is down!{BRESET}")
+                else:
+                    endDN=time.time()
+                    secs=int(endDN-endUP) #to measure downtime, you start from the end of the uptime
+                    days = secs // (24 * 3600)
+                    print(f"{BRE}Downtime [",days,':',time.strftime("%H:%M:%S", time.gmtime(secs)),f"{BRE}]",(down % 9),f"/",limit,f"{BRESET}",'\r', end="")
+                if((down % 9) == 0):
+                    kill_gmod(verbose)
+                    time.sleep(interval*2)
+                time.sleep(interval)
+
+def check_swampsv(verbose):
+    url='https://swamp.sv'
+    if(verbose):
+        print(f"\n{BCY}[+] CHECKING INTERNET{BRESET}")
+    try:
+            requests.get(url).status_code
+            if(verbose):
+                print('[+] swamp.sv online')
+            return True
+    except:
+            if(verbose):
+                print('[+] swamp.sv offline')
+            return False
+
+
+
+
+
+def check_udp_connection(verbose):
+    if(verbose):
+        print(f"\n{BCY}[+] CHECKING UDP{BRESET}")
+    a=sniff(timeout=5,count=10,filter="udp and host 208.103.169.51") #check the udp connection to the server
+    if(len(a) <= 3):  ####IF NO UDP CONNECTION THEN
+        if(verbose):
+            print(f"\n{BRE}[+]",a,f"{BRESET}")
+            print(a.summary())
         return False
+    else: ####IF UDP CONNECTION THEN
+        if(verbose):
+            print(f"\n{BGR}[+]",a,f"{BRESET}")
+            print(a.summary())
+        return True
+
+
+def kill_gmod(verbose):
+    if(verbose):
+        print(f"\n{BRE}[+] CLOSING GMOD{BRESET}")
+    for proc in psutil.process_iter():
+            if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
+                if(verbose):
+                    print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
+                proc.kill()
+    #time.sleep(60)
+
+def restart_gmod(verbose):
+    if(verbose):
+        print(f"\n{BRE}[+] RESTARTING GMOD{BRESET}")
+    for proc in psutil.process_iter():
+            if any(procstr in proc.name() for procstr in ['gmod', 'steam']):
+                if(verbose):
+                    print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
+                proc.kill()
+    subprocess.Popen(fullpath,shell=False)
+
+
+
+
+
 
 if __name__ == '__main__':
     choice='0'
-    steampath='C:\Program Files (x86)\Steam\steam.exe'
-    #steampath='Z:\Steam\steam.exe'
-    args1=' -applaunch 4000 +connect cinema.swampservers.net -windowed -noborder -w 1920 -h 1080'
+    #steampath='C:\Program Files (x86)\Steam\steam.exe'
+    steampath='Z:\Steam\steam.exe'
+    args1=' -applaunch 4000 +connect cinema.swamp.sv -windowed -w 1920 -h 1080'
     args2=''
     while(choice == '0'):
-            choice=input('''
-            1) Active
-            2) Idle
-            3) Idle2 Textmode-Like
-            ''')
+            print(f"\n{BGR}[+] Swamp Cinema Connection Script\n{BRESET}1) Active\n2) Idle\n3) Idle Minimalist\n")
+            choice=input()
             if(choice == '1'):
                 print('Active Selected!')
+                args2=''
             elif(choice == '2'):
                 print('Idle Selected!')
                 args2=' -nosrgb -noaddons -nochromium'
             elif(choice == '3'):
-                print('Idle2 Selected!')
-                args1=' -applaunch 4000 +connect cinema.swampservers.net -windowed -w 1080 -h 700'
+                print('Idle Minimalist')
+                args1=' -applaunch 4000 +connect cinema.swamp.sv -windowed -safe' #-safe -w 1080 -h 700
                 args2=' -nosrgb -noaddons -nochromium  -windowed -novid +contimes 0 +con_notifytime 0'
             else:
                 choice='0'
