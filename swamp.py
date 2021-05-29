@@ -32,53 +32,53 @@ BRESET = Back.RESET
 def main():
         endUP=time.time() # just in case the script starts before gmod is launched
         down=0
-        interval=20 #interval to check UDP connection is 20 secs
+        attemptedrestarts=1
+        interval=30 #interval to check UDP connection is 20 secs
         downUDP=0
-        limit= 9 #number of udp connection tests (9x20secs) before retrying to launch gmod
+        limit= 6 #number of udp connection tests (6x30secs = 3mins) before trying to restart gmod
         verbose=False #False for no verbose output, #True for verbose output
-        #print('Your local IP is',IPAddr)
         while True:
             while(check_swampsv(verbose)):
                 down=0
                 if(verbose):
-                    print(f"\n{BGR}[+] swampservers.net is up!{BRESET}")
+                    print(f"\n{BGR}[+] swamp.sv is up!{BRESET}")
                 start= time.time() #start time elapsed
 
                 while(check_udp_connection(verbose)):
                     downUDP=0
+                    attemptedrestarts=1
                     if(verbose):
                         print(f"\n{BGR}[+] UDP CONNECTION IS UP{BRESET}")
                     endUP=time.time() # endUP the end of the uptime, this means that this is the START of the downtime
                     secs=int(endUP-start)
                     days = secs // (24 * 3600)
-                    if(secs<=interval):
+                    if(secs<(interval/3)):
                             print("")
                     print(f"{BGR}Uptime [",days,':',time.strftime("%H:%M:%S", time.gmtime(secs)),']\r', end="")
-                    time.sleep(interval)
+                    time.sleep(interval/3)
                 else:
                     if(verbose):
                         print(f"\n{BRE}[+] UDP CONNECTION IS DOWN{BRESET}")
                     else:
                         if(downUDP == 0):
+                            subprocess.Popen(fullpath,shell=False)
                             print("")
                         endDN=time.time()
                         secs=int(endDN-endUP) #to measure downtime, you start from the end of the uptime
-                        if(secs<=interval):
-                                print("")
                         days = secs // (24 * 3600)
-                        print(f"{BRE}Downtime [",days,':',time.strftime("%H:%M:%S", time.gmtime(secs)),f"{BRE}]",downUDP,f"/",limit,f"{BRESET}",'\r', end="")
+                        print(f"{BRE}Downtime [",days,':',time.strftime("%H:%M:%S", time.gmtime(secs)),f"{BRE}][",(downUDP % limit),f"/",limit,'][ restart attempts:',attemptedrestarts,f"]{BRESET}",'\r', end="")
                         time.sleep(interval)
                     downUDP+=1
                     if((downUDP % limit) == 0):
-                         #stop elapsed time
                         restart_gmod(verbose)
+                        attemptedrestarts+=1
                 time.sleep(interval)
             else:
                 if(down == 0):
                     print("")
                 down +=1
                 if(verbose):
-                    print(f"\n{BRE}[+] swampservers.net is down!{BRESET}")
+                    print(f"\n{BRE}[+] swamp.sv is down!{BRESET}")
                 else:
                     endDN=time.time()
                     secs=int(endDN-endUP) #to measure downtime, you start from the end of the uptime
@@ -131,7 +131,6 @@ def kill_gmod(verbose):
                 if(verbose):
                     print(f"{BRE}[+] KILLING: {BRESET}",proc.name())
                 proc.kill()
-    #time.sleep(60)
 
 def restart_gmod(verbose):
     if(verbose):
@@ -153,13 +152,13 @@ if __name__ == '__main__':
             print(f"\n{BGR}[+] Swamp Cinema Connection Script\n{BRESET}1) Active\n2) Idle\n3) Idle Minimalist\n")
             choice=input()
             if(choice == '1'):
-                print('Active Selected!')
+                print(f"\n{BGR}[+] Active Selected!{BRESET}")
                 args2=''
             elif(choice == '2'):
-                print('Idle Selected!')
+                print(f"\n{BGR}[+] Idle Selected!{BRESET}")
                 args2=' -nosrgb -noaddons -nochromium'
             elif(choice == '3'):
-                print('Idle Minimalist')
+                print(f"\n{BGR}[+] Idle Minimalist Selected!{BRESET}")
                 args1=' -applaunch 4000 +connect cinema.swamp.sv -windowed -safe' #-safe -w 1080 -h 700
                 args2=' -nosrgb -noaddons -nochromium  -windowed -novid +contimes 0 +con_notifytime 0'
             else:
