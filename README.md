@@ -15,6 +15,7 @@ WIN+X  a (to launch a terminal with admin privileges)
 PS> pip install --upgrade pip
 PS> pip install scapy colorama psutil requests
 ```
+also get npcap if something doesnt work here https://nmap.org/npcap/dist/npcap-1.31.exe
 and you're good to go!
 
 ```
